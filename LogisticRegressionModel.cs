@@ -4,10 +4,20 @@ using System.Linq;
 
 namespace _219003234_Naidoo_KN_AAI
 {
+    /// <summary>
+    /// This class handles the behaviours associated with the logistic regression model
+    /// </summary>
     public class LogisticRegressionModel
-    {
+    {   
+        //this stores the models weights that is learned during the training process
         private double[] coefficients;
 
+        /// <summary>
+        /// This method takes a list of data records as input and preprocessess it by converting it
+        /// into a feature vector aka input variables and labels aka output variables. It then 
+        /// initializes the coefficients array and trains the model using the gradient descent
+        /// </summary>
+        /// <param name="trainingData"></param>
         public void Train(List<DataRecord> trainingData)
         {
             // Preprocess the training data
@@ -21,6 +31,12 @@ namespace _219003234_Naidoo_KN_AAI
             GradientDescent(features, labels, coefficients, learningRate: 0.01, numIterations: 1000);
         }
 
+        /// <summary>
+        /// This method takes in a single test data record and calculates the predicted output using the regression model
+        /// with the learned coefficients it converts the prediction into a binary prediction on the 0.5 threshold
+        /// </summary>
+        /// <param name="testRecord"></param>
+        /// <returns></returns>
         public int Predict(DataRecord testRecord)
         {
             double[] featureVector = GetFeatureVector(testRecord);
@@ -29,6 +45,14 @@ namespace _219003234_Naidoo_KN_AAI
             return prediction >= 0.5 ? 1 : 0;
         }
 
+        /// <summary>
+        /// This method takes a data record and constructs a feature vector that 
+        /// includes an intercept term 1.0 and selected features 
+        /// such as AirTemperature, ProcessTemperature, RotationalSpeed and Torque. 
+        /// MachineFailure is excluded from the features as it is the target variable.
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
         private double[] GetFeatureVector(DataRecord record)
         {
             // Exclude MachineFailure from features
@@ -42,6 +66,16 @@ namespace _219003234_Naidoo_KN_AAI
             };
         }
 
+        /// <summary>
+        /// This method implements the workings of the gradient descent algorithm to update the models coefficients
+        /// It iteratively adjusts the coefficients to minimize the prediction errors by considering the gradients of
+        /// the loss function with respect to each coefficient.
+        /// </summary>
+        /// <param name="features"></param>
+        /// <param name="labels"></param>
+        /// <param name="coefficients"></param>
+        /// <param name="learningRate"></param>
+        /// <param name="numIterations"></param>
         private void GradientDescent(double[][] features, int[] labels, double[] coefficients, double learningRate, int numIterations)
         {
             int numFeatures = features[0].Length;
@@ -79,6 +113,13 @@ namespace _219003234_Naidoo_KN_AAI
             }
         }
 
+        /// <summary>
+        /// This method claculates the linear combination of feature values and coefficients 
+        /// it then applies the sigmoid function to map the linear combination to a value between 1 and 0
+        /// </summary>
+        /// <param name="featureVector"></param>
+        /// <param name="coefficients"></param>
+        /// <returns></returns>
         private double PredictLogisticRegression(double[] featureVector, double[] coefficients)
         {
             // Calculate the linear combination
