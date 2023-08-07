@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CsvHelper.Configuration.Attributes;
 
 namespace _219003234_Naidoo_KN_AAI
 {
@@ -11,53 +7,46 @@ namespace _219003234_Naidoo_KN_AAI
     /// </summary>
     public class DataRecord
     {
+        [Name("id")]
         public int Id { get; set; }
+
+        [Name("Product ID")]
         public string ProductId { get; set; }
+
+        [Name("Type")]
         public string Type { get; set; }
+
+        [Name("Air temperature [K]")]
         public double AirTemperature { get; set; }
+
+        [Name("Process temperature [K]")]
         public double ProcessTemperature { get; set; }
+
+        [Name("Rotational speed [rpm]")]
         public int RotationalSpeed { get; set; }
+
+        [Name("Torque [Nm]")]
         public double Torque { get; set; }
+
+        [Name("Tool wear [min]")]
         public int ToolWear { get; set; }
+
+        [Name("Machine failure")]
         public int MachineFailure { get; set; }
-   /*
+
+        [Name("TWF")]
         public int TWF { get; set; }
+
+        [Name("HDF")]
         public int HDF { get; set; }
+
+        [Name("PWF")]
         public int PWF { get; set; }
+
+        [Name("OSF")]
         public int OSF { get; set; }
+
+        [Name("RNF")]
         public int RNF { get; set; }
-   */
-        public DataRecord(
-            int id,
-            string productId,
-            string type,
-            double airTemperature,
-            double processTemperature,
-            int rotationalSpeed,
-            double torque,
-            int toolWear,
-            int machineFailure
-           /* int twf,
-            int hdf,
-            int pwf,
-            int osf,
-            int rnf*/
-        )
-        {
-            Id = id;
-            ProductId = productId;
-            Type = type;
-            AirTemperature = airTemperature;
-            ProcessTemperature = processTemperature;
-            RotationalSpeed = rotationalSpeed;
-            Torque = torque;
-            ToolWear = toolWear;
-            MachineFailure = machineFailure;
-           /* TWF = twf;
-            HDF = hdf;
-            PWF = pwf;
-            OSF = osf;
-            RNF = rnf;*/
-        }
     }
 }
