@@ -12,6 +12,9 @@ namespace _219003234_Naidoo_KN_AAI
         //this dictionary holds the values for the output classes (0 = no failure / 1 = failure)
         private Dictionary<string, int> classCounts;
 
+        /// <summary>
+        /// This is the constructor
+        /// </summary>
         public NaiveBayesClassifier()
         {
             // Initialize dictionaries to store features by class and class counts
@@ -19,7 +22,10 @@ namespace _219003234_Naidoo_KN_AAI
             classCounts = new Dictionary<string, int>();
         }
 
-        // Method to train the Naive Bayes classifier using training data
+        /// <summary>
+        /// This Method is used to train the Naive Bayes classifier using the training data
+        /// </summary>
+        /// <param name="trainingData">This is a list of training data that is passed to the method</param>
         public void Train(List<DataRecord> trainingData)
         {
             foreach (var record in trainingData)
@@ -57,6 +63,7 @@ namespace _219003234_Naidoo_KN_AAI
                 // Increment the class count
                 classCounts[className]++;
             }
+   
         }
 
         // Method to predict class for a test record
