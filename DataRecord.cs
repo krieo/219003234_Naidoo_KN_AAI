@@ -7,8 +7,8 @@ namespace _219003234_Naidoo_KN_AAI
     /// </summary>
     public class DataRecord
     {
-        [Name("id")]
-        public int Id { get; set; }
+        [Name("id")] //this is the parameter in the csv file
+        public int Id { get; set; } //this is what i have chosen to call it
 
         [Name("Product ID")]
         public string ProductId { get; set; }
