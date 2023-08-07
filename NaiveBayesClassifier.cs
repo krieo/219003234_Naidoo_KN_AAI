@@ -63,7 +63,7 @@ namespace _219003234_Naidoo_KN_AAI
                 // Increment the class count
                 classCounts[className]++;
             }
-   
+
         }
 
         // Method to predict class for a test record

@@ -12,9 +12,11 @@ namespace _219003234_Naidoo_KN_AAI
 
            ImplementationOfAlgorithms algorithm = new ImplementationOfAlgorithms();
             //can use doubles to cut the training data into testing data as well
-            algorithm.NaiveBayesAlgorithm(0.99);
-           // algorithm.NaiveBayesAlgorithm();
+            //algorithm.NaiveBayesAlgorithm(0.99);
+            // algorithm.NaiveBayesAlgorithm();
 
+
+            algorithm.RunLogisticRegression(0.9);
 
         }
 
