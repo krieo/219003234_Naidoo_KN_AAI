@@ -16,7 +16,7 @@ namespace _219003234_Naidoo_KN_AAI
             // algorithm.NaiveBayesAlgorithm();
 
 
-            algorithm.RunLogisticRegression(0.9);
+            algorithm.LogisticRegression();
 
         }
 

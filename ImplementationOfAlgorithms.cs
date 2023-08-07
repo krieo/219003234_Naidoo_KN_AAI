@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,10 @@ namespace _219003234_Naidoo_KN_AAI
             int correctPredictions = 0;
             int totalPredictions = 0;
 
+            // Measure execution time using Stopwatch
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             Console.WriteLine("Testing the classifier...");
             foreach (var testRecord in testingData)
             {
@@ -52,12 +57,16 @@ namespace _219003234_Naidoo_KN_AAI
                 totalPredictions++;
             }
 
+            stopwatch.Stop();
+            TimeSpan trainingTime = stopwatch.Elapsed;
             double accuracy = (double)correctPredictions / totalPredictions * 100;
             Console.WriteLine("Testing complete.");
             Console.WriteLine($"Total Test Data: {totalPredictions}");
             Console.WriteLine($"Correct Predictions: {correctPredictions}");
             Console.WriteLine($"Incorrect Predictions: {totalPredictions - correctPredictions}");
+            Console.WriteLine($"Training Time: {trainingTime.TotalMilliseconds} ms");
             Console.WriteLine($"Accuracy: {accuracy:F2}%");
+
         }
 
 
@@ -83,6 +92,10 @@ namespace _219003234_Naidoo_KN_AAI
             int correctPredictions = 0;
             int totalPredictions = 0;
 
+            // Measure execution time using Stopwatch
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             Console.WriteLine("Testing the classifier...");
             foreach (var testRecord in testingData)
             {
@@ -104,12 +117,16 @@ namespace _219003234_Naidoo_KN_AAI
                 totalPredictions++;
             }
 
+            stopwatch.Stop();
+            TimeSpan trainingTime = stopwatch.Elapsed;
             double accuracy = (double)correctPredictions / totalPredictions * 100;
             Console.WriteLine("Testing complete.");
             Console.WriteLine($"Total Test Data: {totalPredictions}");
             Console.WriteLine($"Correct Predictions: {correctPredictions}");
             Console.WriteLine($"Incorrect Predictions: {totalPredictions - correctPredictions}");
+            Console.WriteLine($"Training Time: {trainingTime.TotalMilliseconds} ms");
             Console.WriteLine($"Accuracy: {accuracy:F2}%");
+
         }
 
         //xxxxxxxxxxxxxxxxxxxx
@@ -132,6 +149,11 @@ namespace _219003234_Naidoo_KN_AAI
             int correctPredictions = 0;
             int totalPredictions = 0;
 
+            // Measure execution time using Stopwatch
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+
             Console.WriteLine("Testing the model...");
             foreach (var testRecord in testingData)
             {
@@ -152,22 +174,24 @@ namespace _219003234_Naidoo_KN_AAI
 
                 totalPredictions++;
             }
-
+            stopwatch.Stop();
+            TimeSpan trainingTime = stopwatch.Elapsed;
             double accuracy = (double)correctPredictions / totalPredictions * 100;
             Console.WriteLine("Testing complete.");
             Console.WriteLine($"Total Test Data: {totalPredictions}");
             Console.WriteLine($"Correct Predictions: {correctPredictions}");
             Console.WriteLine($"Incorrect Predictions: {totalPredictions - correctPredictions}");
+            Console.WriteLine($"Training Time: {trainingTime.TotalMilliseconds} ms");
             Console.WriteLine($"Accuracy: {accuracy:F2}%");
         }
 
-        public void RunLogisticRegression(double dataCut)
+        public void LogisticRegression()
         {
             FileHandler fileHandler = new FileHandler();
             List<DataRecord> allData = fileHandler.readFromFile();
 
             // Determine the split point (90% for training, 10% for testing)
-            int splitIndex = (int)(allData.Count * dataCut);
+            int splitIndex = (int)(allData.Count * 0.9);
             List<DataRecord> trainingData = allData.Take(splitIndex).ToList();
             List<DataRecord> testingData = allData.Skip(splitIndex).ToList();
 
@@ -180,6 +204,11 @@ namespace _219003234_Naidoo_KN_AAI
             int correctPredictions = 0;
             int totalPredictions = 0;
 
+            // Measure execution time using Stopwatch
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+
             Console.WriteLine("Testing the model...");
             foreach (var testRecord in testingData)
             {
@@ -200,12 +229,14 @@ namespace _219003234_Naidoo_KN_AAI
 
                 totalPredictions++;
             }
-
+            stopwatch.Stop();
+            TimeSpan trainingTime = stopwatch.Elapsed;
             double accuracy = (double)correctPredictions / totalPredictions * 100;
             Console.WriteLine("Testing complete.");
             Console.WriteLine($"Total Test Data: {totalPredictions}");
             Console.WriteLine($"Correct Predictions: {correctPredictions}");
             Console.WriteLine($"Incorrect Predictions: {totalPredictions - correctPredictions}");
+            Console.WriteLine($"Training Time: {trainingTime.TotalMilliseconds} ms");
             Console.WriteLine($"Accuracy: {accuracy:F2}%");
         }
     }
