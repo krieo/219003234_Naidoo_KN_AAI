@@ -34,7 +34,7 @@ namespace _219003234_Naidoo_KN_AAI
         [Name("Machine failure")]
         public int MachineFailure { get; set; }
 
-        [Name("TWF")]
+        [Name("TWF")] 
         public int TWF { get; set; }
 
         [Name("HDF")]
