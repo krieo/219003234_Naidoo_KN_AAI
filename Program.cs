@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 
 ImplementationOfAlgorithms algorithm = new ImplementationOfAlgorithms();
@@ -18,29 +19,46 @@ do
 
 
     //This performs the choice seperations
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
     string choice = Console.ReadLine();
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
     switch (choice)
     {
         case "1":
-            Console.WriteLine("Starting Bayes Naive algorithm training and testing...");
-            
+            Console.WriteLine("\n Bayes Naive algorithm selected \n");
+            Console.WriteLine("Would you like to change the ratio of training data to testing data? Current ratio is 90% training to 10% testing of 100% data \n Select 'y' or 'n'");
+            string choicetraining = Console.ReadLine();
+            if (choicetraining == "y")
+            {
+                Console.WriteLine("\n Please enter numerical value for ratio from 0.00 to 1.00 for example 0.9 for 90% \n");
+                string ratio = Console.ReadLine();
+                if (double.TryParse(ratio, out double ratioValue))
+                {
+                    algorithm.NaiveBayesAlgorithm(ratioValue);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid ratio input. Please enter a valid numeric value.");
+                }
+                
+            }
+            else
+            {
+                algorithm.NaiveBayesAlgorithm();
+            }
             break;
 
         case "2":
-            Console.WriteLine("Starting Logistic Regression algorithm training and testing...");
+            Console.WriteLine("\n Logistic Regression algorithm selected \n");
                         break;
 
         case "3":
-            Console.WriteLine("Starting Complementary neural network training and testing...");
+            Console.WriteLine("\n Complementary neural network selected \n");
             
             break;
 
         case "9":
             Console.WriteLine("Exiting the program.");
-            
+            continueBool = false;
             break;
 
         default:
