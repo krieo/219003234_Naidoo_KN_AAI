@@ -49,7 +49,27 @@ do
 
         case "2":
             Console.WriteLine("\n Logistic Regression algorithm selected \n");
-                        break;
+            Console.WriteLine("Would you like to change the ratio of training data to testing data? Current ratio is 90% training to 10% testing of 100% data \n Select 'y' or 'n'");
+            string choicetraining2 = Console.ReadLine();
+            if (choicetraining2 == "y")
+            {
+                Console.WriteLine("\n Please enter numerical value for ratio from 0.00 to 1.00 for example 0.9 for 90% \n");
+                string ratio2 = Console.ReadLine();
+                if (double.TryParse(ratio2, out double ratioValue2))
+                {
+                    algorithm.LogisticRegression(ratioValue2);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid ratio input. Please enter a valid numeric value.");
+                }
+
+            }
+            else
+            {
+                algorithm.LogisticRegression();
+            }
+            break;
 
         case "3":
             Console.WriteLine("\n Complementary neural network selected \n");
