@@ -24,21 +24,17 @@ do
     switch (choice)
     {
         case "1":
-            Console.WriteLine("\n Bayes Naive algorithm selected \n");
+            Console.WriteLine("Bayes Naive algorithm selected");
             Console.WriteLine("Would you like to change the ratio of training data to testing data? Current ratio is 90% training to 10% testing of 100% data \n Select 'y' or 'n'");
             string choicetraining = Console.ReadLine();
             if (choicetraining == "y")
             {
-                Console.WriteLine("\n Please enter numerical value for ratio from 0.00 to 1.00 for example 0.9 for 90% \n");
+                Console.WriteLine("Please enter numerical value for ratio from 0.00 to 1.00 for example 0.9 for 90% \n");
                 string ratio = Console.ReadLine();
-                if (double.TryParse(ratio, out double ratioValue))
-                {
-                    algorithm.NaiveBayesAlgorithm(ratioValue);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid ratio input. Please enter a valid numeric value.");
-                }
+                 
+                
+                    algorithm.NaiveBayesAlgorithm(double.Parse(ratio));
+                
                 
             }
             else
@@ -48,22 +44,16 @@ do
             break;
 
         case "2":
-            Console.WriteLine("\n Logistic Regression algorithm selected \n");
+            Console.WriteLine("Logistic Regression algorithm selected");
             Console.WriteLine("Would you like to change the ratio of training data to testing data? Current ratio is 90% training to 10% testing of 100% data \n Select 'y' or 'n'");
             string choicetraining2 = Console.ReadLine();
             if (choicetraining2 == "y")
             {
-                Console.WriteLine("\n Please enter numerical value for ratio from 0.00 to 1.00 for example 0.9 for 90% \n");
+                Console.WriteLine("Please enter numerical value for ratio from 0.00 to 1.00 for example 0.9 for 90% \n");
                 string ratio2 = Console.ReadLine();
-                if (double.TryParse(ratio2, out double ratioValue2))
-                {
-                    algorithm.LogisticRegression(ratioValue2);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid ratio input. Please enter a valid numeric value.");
-                }
-
+              
+                    algorithm.LogisticRegression(double.Parse(ratio2));
+              
             }
             else
             {
@@ -72,7 +62,7 @@ do
             break;
 
         case "3":
-            Console.WriteLine("\n Complementary neural network selected \n");
+            Console.WriteLine("Complementary neural network selected");
             
             break;
 
