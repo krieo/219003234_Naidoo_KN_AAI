@@ -11,7 +11,10 @@ ImplementationOfAlgorithms algorithm = new ImplementationOfAlgorithms();
 //algorithm.NaiveBayesAlgorithm(0.99);
 // algorithm.NaiveBayesAlgorithm();
 
-bool continueBool = true;
+ComplementaryNeuralNetwork complementaryNeuralNetwork = new ComplementaryNeuralNetwork();
+//complementaryNeuralNetwork.TruthNeuralNetworkAlgorithm(0.9);
+complementaryNeuralNetwork.FalsityNeuralNetworkAlgorithm(0.9);
+bool continueBool = false;
 //this loops the program in a menu like structure
 do
 {
