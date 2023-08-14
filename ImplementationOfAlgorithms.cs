@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace _219003234_Naidoo_KN_AAI
 {
+    /// <summary>
+    /// This class acts as the main calling class for the various algorithms
+    /// each of its methods implements the various algorithms and performs its
+    /// functions
+    /// </summary>
     public class ImplementationOfAlgorithms
     {
         /// <summary>
@@ -129,7 +134,13 @@ namespace _219003234_Naidoo_KN_AAI
 
         }
 
-        //xxxxxxxxxxxxxxxxxxxx
+        
+        /// <summary>
+        /// This method performs the calling for the logisticregression algorithm
+        /// the it takes in a training cut off data value from 0.0 to 1.00 to determine
+        /// how much of the data to use as training and how much to use for testing
+        /// </summary>
+        /// <param name="dataCut"></param>
         public void LogisticRegression(double dataCut)
         {
             FileHandler fileHandler = new FileHandler();
@@ -185,6 +196,12 @@ namespace _219003234_Naidoo_KN_AAI
             Console.WriteLine($"Accuracy: {accuracy:F2}%");
         }
 
+
+        /// <summary>
+        /// This is an overloaded method that performs the logisticregression tasks
+        /// however in this method the ratio to training to testing data is cut at
+        /// 90% for training and 10% for testing
+        /// </summary>
         public void LogisticRegression()
         {
             FileHandler fileHandler = new FileHandler();

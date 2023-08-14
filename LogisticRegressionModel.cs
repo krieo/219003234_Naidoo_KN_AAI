@@ -29,6 +29,7 @@ namespace _219003234_Naidoo_KN_AAI
 
             // Train using gradient descent
             GradientDescent(features, labels, coefficients, learningRate: 0.01, numIterations: 1000);
+            //GradientDescent(features, labels, coefficients, learningRate: 0.15, numIterations: 2000);
         }
 
         /// <summary>
