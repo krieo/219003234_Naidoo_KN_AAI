@@ -69,7 +69,8 @@ namespace _219003234_Naidoo_KN_AAI
             Console.WriteLine($"Total Test Data: {totalPredictions}");
             Console.WriteLine($"Correct Predictions: {correctPredictions}");
             Console.WriteLine($"Incorrect Predictions: {totalPredictions - correctPredictions}");
-            Console.WriteLine($"Training Time: {trainingTime.TotalMilliseconds} ms");
+            double roundedMinutes = Math.Round(trainingTime.TotalMinutes, 2);
+            Console.WriteLine($"Training Time: {roundedMinutes} minutes");
             Console.WriteLine($"Accuracy: {accuracy:F2}%");
 
         }
@@ -129,7 +130,8 @@ namespace _219003234_Naidoo_KN_AAI
             Console.WriteLine($"Total Test Data: {totalPredictions}");
             Console.WriteLine($"Correct Predictions: {correctPredictions}");
             Console.WriteLine($"Incorrect Predictions: {totalPredictions - correctPredictions}");
-            Console.WriteLine($"Training Time: {trainingTime.TotalMilliseconds} ms");
+            double roundedMinutes = Math.Round(trainingTime.TotalMinutes, 2);
+            Console.WriteLine($"Training Time: {roundedMinutes} minutes");
             Console.WriteLine($"Accuracy: {accuracy:F2}%");
 
         }
@@ -192,7 +194,8 @@ namespace _219003234_Naidoo_KN_AAI
             Console.WriteLine($"Total Test Data: {totalPredictions}");
             Console.WriteLine($"Correct Predictions: {correctPredictions}");
             Console.WriteLine($"Incorrect Predictions: {totalPredictions - correctPredictions}");
-            Console.WriteLine($"Training Time: {trainingTime.TotalMilliseconds} ms");
+            double roundedMinutes = Math.Round(trainingTime.TotalMinutes, 2);
+            Console.WriteLine($"Training Time: {roundedMinutes} minutes");
             Console.WriteLine($"Accuracy: {accuracy:F2}%");
         }
 
@@ -253,7 +256,8 @@ namespace _219003234_Naidoo_KN_AAI
             Console.WriteLine($"Total Test Data: {totalPredictions}");
             Console.WriteLine($"Correct Predictions: {correctPredictions}");
             Console.WriteLine($"Incorrect Predictions: {totalPredictions - correctPredictions}");
-            Console.WriteLine($"Training Time: {trainingTime.TotalMilliseconds} ms");
+            double roundedMinutes = Math.Round(trainingTime.TotalMinutes, 2);
+            Console.WriteLine($"Training Time: {roundedMinutes} minutes");
             Console.WriteLine($"Accuracy: {accuracy:F2}%");
         }
     }
