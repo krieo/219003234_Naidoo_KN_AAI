@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _219003234_Naidoo_KN_AAI
 {
     public class ComplementaryNeuralNetwork
     {
+        private List<double> predictArrayTrue; // To store predictions from the truth network
+        private List<double> predictArrayFalse; // To store predictions from the falsity network
+
+        // Method to run the truth neural network algorithm
         public void TruthNeuralNetworkAlgorithm(double dataCut)
         {
             FileHandler fileHandler = new FileHandler();
@@ -17,6 +19,9 @@ namespace _219003234_Naidoo_KN_AAI
             int splitIndex = (int)(allData.Count * dataCut);
             List<DataRecord> trainingData = allData.Take(splitIndex).ToList();
             List<DataRecord> testingData = allData.Skip(splitIndex).ToList();
+
+            // Initialize the array to store truth network predictions
+            predictArrayTrue = new List<double>();
 
             TruthNeuralNetwork neuralNetwork = new TruthNeuralNetwork(trainingData);
             Console.WriteLine("Training the Truth Neural Network...");
@@ -49,6 +54,9 @@ namespace _219003234_Naidoo_KN_AAI
                     Console.WriteLine("Prediction: Incorrect");
                 }
 
+                // Store the prediction in the array
+                predictArrayTrue.Add(predictedMachineFailure);
+
                 totalPredictions++;
             }
 
@@ -64,6 +72,7 @@ namespace _219003234_Naidoo_KN_AAI
             Console.WriteLine($"Accuracy: {accuracy:F2}%");
         }
 
+        // Method to run the falsity neural network algorithm
         public void FalsityNeuralNetworkAlgorithm(double dataCut)
         {
             FileHandler fileHandler = new FileHandler();
@@ -72,6 +81,9 @@ namespace _219003234_Naidoo_KN_AAI
             int splitIndex = (int)(allData.Count * dataCut);
             List<DataRecord> trainingData = allData.Take(splitIndex).ToList();
             List<DataRecord> testingData = allData.Skip(splitIndex).ToList();
+
+            // Initialize the array to store falsity network predictions
+            predictArrayFalse = new List<double>();
 
             FalsityNeuralNetwork neuralNetwork = new FalsityNeuralNetwork(trainingData);
             Console.WriteLine("Training the Falsity Neural Network...");
@@ -104,6 +116,9 @@ namespace _219003234_Naidoo_KN_AAI
                     Console.WriteLine("Prediction: Incorrect");
                 }
 
+                // Store the prediction in the array
+                predictArrayFalse.Add(predictedMachineFailure);
+
                 totalPredictions++;
             }
 
@@ -117,6 +132,28 @@ namespace _219003234_Naidoo_KN_AAI
             double roundedMinutes = Math.Round(trainingTime.TotalMinutes, 2);
             Console.WriteLine($"Training Time: {roundedMinutes} minutes");
             Console.WriteLine($"Accuracy: {accuracy:F2}%");
+        }
+
+        // Method to calculate the error based on the predicted arrays
+        public double CalculateError()
+        {
+            if (predictArrayTrue == null || predictArrayFalse == null || predictArrayTrue.Count != predictArrayFalse.Count)
+            {
+                throw new InvalidOperationException("Predict arrays are not initialized or do not have equal length.");
+            }
+
+            double totalError = 0.0;
+
+            for (int i = 0; i < predictArrayTrue.Count; i++)
+            {
+                double Ttrain = predictArrayTrue[i];
+                double Ftrain = predictArrayFalse[i];
+                double error = 1.0 - (Ttrain + (1.0 - Ftrain)) / 2.0;
+                totalError += error;
+            }
+
+            double averageError = totalError / predictArrayTrue.Count;
+            return averageError;
         }
     }
 }
