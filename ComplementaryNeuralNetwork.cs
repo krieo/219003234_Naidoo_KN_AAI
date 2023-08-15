@@ -10,130 +10,6 @@ namespace _219003234_Naidoo_KN_AAI
         private List<double> predictArrayTrue; // To store predictions from the truth network
         private List<double> predictArrayFalse; // To store predictions from the falsity network
 
-        // Method to run the truth neural network algorithm
-        public void TruthNeuralNetworkAlgorithm(double dataCut)
-        {
-            FileHandler fileHandler = new FileHandler();
-            List<DataRecord> allData = fileHandler.readFromFile();
-
-            int splitIndex = (int)(allData.Count * dataCut);
-            List<DataRecord> trainingData = allData.Take(splitIndex).ToList();
-            List<DataRecord> testingData = allData.Skip(splitIndex).ToList();
-
-            // Initialize the array to store truth network predictions
-            predictArrayTrue = new List<double>();
-
-            TruthNeuralNetwork neuralNetwork = new TruthNeuralNetwork(trainingData);
-            Console.WriteLine("Training the Truth Neural Network...");
-            neuralNetwork.Train();
-            Console.WriteLine("Training complete.");
-
-            int correctPredictions = 0;
-            int totalPredictions = 0;
-
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            Console.WriteLine("Testing the Truth Neural Network...");
-            foreach (var testRecord in testingData)
-            {
-                Console.WriteLine($"Testing record with Id: {testRecord.Id}");
-
-                double predictedMachineFailure = neuralNetwork.Predict(testRecord);
-
-                int actualMachineFailure = testRecord.MachineFailure;
-                int predictedBinaryOutput = predictedMachineFailure > 0.5 ? 1 : 0;
-
-                if (actualMachineFailure == predictedBinaryOutput)
-                {
-                    correctPredictions++;
-                    Console.WriteLine("Prediction: Correct");
-                }
-                else
-                {
-                    Console.WriteLine("Prediction: Incorrect");
-                }
-
-                // Store the prediction in the array
-                predictArrayTrue.Add(predictedMachineFailure);
-
-                totalPredictions++;
-            }
-
-            stopwatch.Stop();
-            TimeSpan trainingTime = stopwatch.Elapsed;
-            double accuracy = (double)correctPredictions / totalPredictions * 100;
-            Console.WriteLine("Testing complete.");
-            Console.WriteLine($"Total Test Data: {totalPredictions}");
-            Console.WriteLine($"Correct Predictions: {correctPredictions}");
-            Console.WriteLine($"Incorrect Predictions: {totalPredictions - correctPredictions}");
-            double roundedMinutes = Math.Round(trainingTime.TotalMinutes, 2);
-            Console.WriteLine($"Training Time: {roundedMinutes} minutes");
-            Console.WriteLine($"Accuracy: {accuracy:F2}%");
-        }
-
-        // Method to run the falsity neural network algorithm
-        public void FalsityNeuralNetworkAlgorithm(double dataCut)
-        {
-            FileHandler fileHandler = new FileHandler();
-            List<DataRecord> allData = fileHandler.readFromFile();
-
-            int splitIndex = (int)(allData.Count * dataCut);
-            List<DataRecord> trainingData = allData.Take(splitIndex).ToList();
-            List<DataRecord> testingData = allData.Skip(splitIndex).ToList();
-
-            // Initialize the array to store falsity network predictions
-            predictArrayFalse = new List<double>();
-
-            FalsityNeuralNetwork neuralNetwork = new FalsityNeuralNetwork(trainingData);
-            Console.WriteLine("Training the Falsity Neural Network...");
-            neuralNetwork.Train();
-            Console.WriteLine("Training complete.");
-
-            int correctPredictions = 0;
-            int totalPredictions = 0;
-
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            Console.WriteLine("Testing the Falsity Neural Network...");
-            foreach (var testRecord in testingData)
-            {
-                Console.WriteLine($"Testing record with Id: {testRecord.Id}");
-
-                double predictedMachineFailure = neuralNetwork.Predict(testRecord);
-
-                int actualMachineFailure = testRecord.MachineFailure;
-                int predictedBinaryOutput = predictedMachineFailure > 0.5 ? 1 : 0;
-
-                if (actualMachineFailure == predictedBinaryOutput)
-                {
-                    correctPredictions++;
-                    Console.WriteLine("Prediction: Correct");
-                }
-                else
-                {
-                    Console.WriteLine("Prediction: Incorrect");
-                }
-
-                // Store the prediction in the array
-                predictArrayFalse.Add(predictedMachineFailure);
-
-                totalPredictions++;
-            }
-
-            stopwatch.Stop();
-            TimeSpan trainingTime = stopwatch.Elapsed;
-            double accuracy = (double)correctPredictions / totalPredictions * 100;
-            Console.WriteLine("Testing complete.");
-            Console.WriteLine($"Total Test Data: {totalPredictions}");
-            Console.WriteLine($"Correct Predictions: {correctPredictions}");
-            Console.WriteLine($"Incorrect Predictions: {totalPredictions - correctPredictions}");
-            double roundedMinutes = Math.Round(trainingTime.TotalMinutes, 2);
-            Console.WriteLine($"Training Time: {roundedMinutes} minutes");
-            Console.WriteLine($"Accuracy: {accuracy:F2}%");
-        }
-
         // Method to calculate the error based on the predicted arrays
         public double CalculateError()
         {
@@ -148,6 +24,8 @@ namespace _219003234_Naidoo_KN_AAI
             {
                 double Ttrain = predictArrayTrue[i];
                 double Ftrain = predictArrayFalse[i];
+
+                // Calculate the error as suggested
                 double error = 1.0 - (Ttrain + (1.0 - Ftrain)) / 2.0;
                 totalError += error;
             }
@@ -155,6 +33,132 @@ namespace _219003234_Naidoo_KN_AAI
             double averageError = totalError / predictArrayTrue.Count;
             Console.WriteLine(averageError.ToString() + " This is the error");
             return averageError;
+        }
+
+        // Method to aggregate predictions based on error
+        private double AggregatePredictions(double predictionTrue, double predictionFalse)
+        {
+            // Define an aggregation rule based on error comparison
+            if (Math.Abs(predictionTrue - 0.5) < Math.Abs(predictionFalse - 0.5))
+            {
+                return predictionTrue;
+            }
+            else
+            {
+                return predictionFalse;
+            }
+        }
+
+        // Method to run the complementary neural network algorithm
+        public void ComplementaryNeuralNetworkAlgorithm(double dataCut)
+        {
+            FileHandler fileHandler = new FileHandler();
+            List<DataRecord> allData = fileHandler.readFromFile();
+
+            int splitIndex = (int)(allData.Count * dataCut);
+            List<DataRecord> trainingData = allData.Take(splitIndex).ToList();
+            List<DataRecord> testingData = allData.Skip(splitIndex).ToList();
+
+            // Initialize the arrays to store network predictions
+            predictArrayTrue = new List<double>();
+            predictArrayFalse = new List<double>();
+
+            // Create instances of TruthNeuralNetwork and FalsityNeuralNetwork
+            TruthNeuralNetwork truthNetwork = new TruthNeuralNetwork(trainingData);
+            FalsityNeuralNetwork falsityNetwork = new FalsityNeuralNetwork(trainingData);
+
+            Console.WriteLine("Training the Truth Neural Network...");
+            truthNetwork.Train();
+            Console.WriteLine("Training complete.");
+
+            Console.WriteLine("Training the Falsity Neural Network...");
+            falsityNetwork.Train();
+            Console.WriteLine("Training complete.");
+
+            int correctPredictions = 0;
+            int totalPredictions = 0;
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            Console.WriteLine("Testing the Complementary Neural Network...");
+            foreach (var testRecord in testingData)
+            {
+               Console.WriteLine($"Testing record with Id: {testRecord.Id}");
+
+                // Get predictions from both networks
+                double predictedMachineFailureTrue = truthNetwork.Predict(testRecord);
+                double predictedMachineFailureFalse = falsityNetwork.Predict(testRecord);
+
+                 //Aggregate predictions based on error
+                double aggregatedPrediction = AggregatePredictions(predictedMachineFailureTrue, predictedMachineFailureFalse);
+
+                int actualMachineFailure = testRecord.MachineFailure;
+                int predictedBinaryOutput = aggregatedPrediction > 0.5 ? 1 : 0;
+
+                if (actualMachineFailure == predictedBinaryOutput)
+                {
+                    correctPredictions++;
+                    Console.WriteLine("Prediction: Correct");
+                }
+                else
+                {
+                    Console.WriteLine("Prediction: Incorrect");
+                }
+
+                // Store the predictions in the arrays
+                predictArrayTrue.Add(predictedMachineFailureTrue);
+                predictArrayFalse.Add(predictedMachineFailureFalse);
+
+                totalPredictions++;
+            }
+
+            stopwatch.Stop();
+            TimeSpan trainingTime = stopwatch.Elapsed;
+            double accuracy = (double)correctPredictions / totalPredictions * 100;
+            Console.WriteLine("Testing complete.");
+            Console.WriteLine($"Total Test Data: {totalPredictions}");
+            Console.WriteLine($"Correct Predictions: {correctPredictions}");
+            Console.WriteLine($"Incorrect Predictions: {totalPredictions - correctPredictions}");
+            double roundedMinutes = Math.Round(trainingTime.TotalMinutes, 2);
+            Console.WriteLine($"Training Time: {roundedMinutes} minutes");
+            Console.WriteLine($"Accuracy: {accuracy:F2}%");
+
+            // Calculate and display the error
+            double averageError = CalculateError();
+            Console.WriteLine($"Average Error: {averageError}");
+
+            // Check if using aggregated predictions improves accuracy
+            double aggregatedAccuracy = EvaluateAggregatedAccuracy(testingData, truthNetwork, falsityNetwork);
+            Console.WriteLine($"Aggregated Accuracy: {aggregatedAccuracy:F2}%");
+        }
+
+        // Method to evaluate accuracy using aggregated predictions
+        private double EvaluateAggregatedAccuracy(List<DataRecord> testingData, TruthNeuralNetwork truthNetwork, FalsityNeuralNetwork falsityNetwork)
+        {
+            int correctPredictions = 0;
+            int totalPredictions = 0;
+
+            foreach (var testRecord in testingData)
+            {
+                double predictedMachineFailureTrue = truthNetwork.Predict(testRecord);
+                double predictedMachineFailureFalse = falsityNetwork.Predict(testRecord);
+
+                double aggregatedPrediction = AggregatePredictions(predictedMachineFailureTrue, predictedMachineFailureFalse);
+
+                int actualMachineFailure = testRecord.MachineFailure;
+                int predictedBinaryOutput = aggregatedPrediction > 0.5 ? 1 : 0;
+
+                if (actualMachineFailure == predictedBinaryOutput)
+                {
+                    correctPredictions++;
+                }
+
+                totalPredictions++;
+            }
+
+            double aggregatedAccuracy = (double)correctPredictions / totalPredictions * 100;
+            return aggregatedAccuracy;
         }
     }
 }
