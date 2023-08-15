@@ -16,6 +16,7 @@ ComplementaryNeuralNetwork complementaryNeuralNetwork = new ComplementaryNeuralN
 complementaryNeuralNetwork.TruthNeuralNetworkAlgorithm(0.9);
 Console.ReadLine();
 complementaryNeuralNetwork.FalsityNeuralNetworkAlgorithm(0.9);
+complementaryNeuralNetwork.CalculateError();
 bool continueBool = false;
 //this loops the program in a menu like structure
 do

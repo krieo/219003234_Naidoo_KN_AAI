@@ -153,6 +153,7 @@ namespace _219003234_Naidoo_KN_AAI
             }
 
             double averageError = totalError / predictArrayTrue.Count;
+            Console.WriteLine(averageError.ToString() + " This is the error");
             return averageError;
         }
     }
