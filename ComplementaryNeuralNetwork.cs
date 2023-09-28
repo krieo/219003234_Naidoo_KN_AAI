@@ -129,16 +129,16 @@ namespace _219003234_Naidoo_KN_AAI
             Console.WriteLine($"Average Error: {averageError}");
 
             // Print truth network's prediction total and accuracy
-            Console.WriteLine("Truth Network's Predictions:");
-            Console.WriteLine($"Total Predictions: {predictArrayTrue.Count}");
+           // Console.WriteLine("Truth Network's Predictions:");
+           // Console.WriteLine($"Total Predictions: {predictArrayTrue.Count}");
             double truthNetworkAccuracy = CalculateNetworkAccuracy(predictArrayTrue, testingData);
-            Console.WriteLine($"Accuracy: {truthNetworkAccuracy:F2}%");
+           // Console.WriteLine($"Accuracy: {truthNetworkAccuracy:F2}%");
 
             // Print falsity network's prediction total and accuracy
-            Console.WriteLine("Falsity Network's Predictions:");
-            Console.WriteLine($"Total Predictions: {predictArrayFalse.Count}");
+           // Console.WriteLine("Falsity Network's Predictions:");
+           // Console.WriteLine($"Total Predictions: {predictArrayFalse.Count}");
             double falsityNetworkAccuracy = CalculateNetworkAccuracy(predictArrayFalse, testingData);
-            Console.WriteLine($"Accuracy: {falsityNetworkAccuracy:F2}%");
+          //  Console.WriteLine($"Accuracy: {falsityNetworkAccuracy:F2}%");
         }
 
         // Method to calculate network accuracy
