@@ -84,13 +84,13 @@ namespace _219003234_Naidoo_KN_AAI
             Console.WriteLine("Testing the Complementary Neural Network...");
             foreach (var testRecord in testingData)
             {
-               Console.WriteLine($"Testing record with Id: {testRecord.Id}");
+                Console.WriteLine($"Testing record with Id: {testRecord.Id}");
 
                 // Get predictions from both networks
                 double predictedMachineFailureTrue = truthNetwork.Predict(testRecord);
                 double predictedMachineFailureFalse = falsityNetwork.Predict(testRecord);
 
-                 //Aggregate predictions based on error
+                // Aggregate predictions based on error
                 double aggregatedPrediction = AggregatePredictions(predictedMachineFailureTrue, predictedMachineFailureFalse);
 
                 int actualMachineFailure = testRecord.MachineFailure;
@@ -128,37 +128,39 @@ namespace _219003234_Naidoo_KN_AAI
             double averageError = CalculateError();
             Console.WriteLine($"Average Error: {averageError}");
 
-            // Check if using aggregated predictions improves accuracy
-            double aggregatedAccuracy = EvaluateAggregatedAccuracy(testingData, truthNetwork, falsityNetwork);
-            Console.WriteLine($"Aggregated Accuracy: {aggregatedAccuracy:F2}%");
+            // Print truth network's prediction total and accuracy
+            Console.WriteLine("Truth Network's Predictions:");
+            Console.WriteLine($"Total Predictions: {predictArrayTrue.Count}");
+            double truthNetworkAccuracy = CalculateNetworkAccuracy(predictArrayTrue, testingData);
+            Console.WriteLine($"Accuracy: {truthNetworkAccuracy:F2}%");
+
+            // Print falsity network's prediction total and accuracy
+            Console.WriteLine("Falsity Network's Predictions:");
+            Console.WriteLine($"Total Predictions: {predictArrayFalse.Count}");
+            double falsityNetworkAccuracy = CalculateNetworkAccuracy(predictArrayFalse, testingData);
+            Console.WriteLine($"Accuracy: {falsityNetworkAccuracy:F2}%");
         }
 
-        // Method to evaluate accuracy using aggregated predictions
-        private double EvaluateAggregatedAccuracy(List<DataRecord> testingData, TruthNeuralNetwork truthNetwork, FalsityNeuralNetwork falsityNetwork)
+        // Method to calculate network accuracy
+        private double CalculateNetworkAccuracy(List<double> predictionArray, List<DataRecord> testingData)
         {
             int correctPredictions = 0;
-            int totalPredictions = 0;
 
-            foreach (var testRecord in testingData)
+            for (int i = 0; i < predictionArray.Count; i++)
             {
-                double predictedMachineFailureTrue = truthNetwork.Predict(testRecord);
-                double predictedMachineFailureFalse = falsityNetwork.Predict(testRecord);
-
-                double aggregatedPrediction = AggregatePredictions(predictedMachineFailureTrue, predictedMachineFailureFalse);
-
-                int actualMachineFailure = testRecord.MachineFailure;
-                int predictedBinaryOutput = aggregatedPrediction > 0.5 ? 1 : 0;
+                int actualMachineFailure = testingData[i].MachineFailure;
+                int predictedBinaryOutput = predictionArray[i] > 0.5 ? 1 : 0;
 
                 if (actualMachineFailure == predictedBinaryOutput)
                 {
                     correctPredictions++;
                 }
-
-                totalPredictions++;
             }
 
-            double aggregatedAccuracy = (double)correctPredictions / totalPredictions * 100;
-            return aggregatedAccuracy;
+            double accuracy = (double)correctPredictions / predictionArray.Count * 100;
+            return accuracy;
         }
+
+      
     }
 }
