@@ -46,6 +46,7 @@ do
 
         case "3":
             Console.WriteLine("Complementary neural network selected");
+            Console.WriteLine("Current ratio is 90% training to 10% testing of 100% data");
             ComplementaryNeuralNetwork complementaryNeuralNetwork = new ComplementaryNeuralNetwork();
             complementaryNeuralNetwork.ComplementaryNeuralNetworkAlgorithm(0.9);
             break;
