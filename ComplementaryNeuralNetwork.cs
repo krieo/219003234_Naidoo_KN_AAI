@@ -25,7 +25,7 @@ namespace _219003234_Naidoo_KN_AAI
                 double Ttrain = predictArrayTrue[i];
                 double Ftrain = predictArrayFalse[i];
 
-                // Calculate the error as suggested
+                // Calculate the error
                 double error = 1.0 - (Ttrain + (1.0 - Ftrain)) / 2.0;
                 totalError += error;
             }
