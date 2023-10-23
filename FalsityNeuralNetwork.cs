@@ -14,7 +14,7 @@ namespace _219003234_Naidoo_KN_AAI
         private List<double> hiddenWeights; // Weights for the hidden layer
         private double outputWeight; // Weight for the output neuron
 
-        public FalsityNeuralNetwork(List<DataRecord> trainingData, int hiddenCount = 5, double learningRate = 0.1)
+        public FalsityNeuralNetwork(List<DataRecord> trainingData, int hiddenCount = 5, double learningRate = 0.01)
         {
             this.trainingData = trainingData;
             this.inputCount = GetInputValues(trainingData[0]).Count; // Include MachineFailure as input
