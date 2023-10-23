@@ -38,7 +38,7 @@ namespace _219003234_Naidoo_KN_AAI
         // Method to aggregate predictions based on error
         private double AggregatePredictions(double predictionTrue, double predictionFalse)
         {
-            // Define an aggregation rule based on error comparison
+            
             if (Math.Abs(predictionTrue - 0.5) < Math.Abs(predictionFalse - 0.5))
             {
                 return predictionTrue;
