@@ -1,1 +1,1 @@
-# 219003234_Naidoo_KN_AAI
+This is my advanced artificial intelligence project, It is an application that is used to predict the failure rate of a machine, it has 3 implementations of alogorithms from scracth without using any libraries, a naive bayes, a logistic regression, a complementary neural network.
